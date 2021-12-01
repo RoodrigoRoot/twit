@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+
+  backend:
+    container_name: backend
+    build:
+      context: .
+    env_file: .env
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8500
+    volumes:
+      - .:/app
+      - .:/log/var/tweet
+    ports:
+      - "8500:8500"
+
+
+
