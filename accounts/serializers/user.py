@@ -38,10 +38,15 @@ class ReadDataUserSerializer(serializers.Serializer):
     email = serializers.EmailField()
     description = serializers.SerializerMethodField()
     followers_count = serializers.SerializerMethodField()
+    following_count = serializers.SerializerMethodField()
 
     def get_followers_count(self, obj):
         user = get_user(obj.get("username"), True)
         return user.followers_count
+
+    def get_following_count(self, obj):
+        user = get_user(obj.get("username"), True)
+        return user.followin_count
 
     def get_description(self, obj):
         description = obj.get("description")
