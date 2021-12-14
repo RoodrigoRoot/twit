@@ -11,9 +11,12 @@ RUN apk update && apk add wget
 COPY requirements.txt /app/
 COPY . /app/
 
-RUN python -m pip install --upgrade pip
-
+RUN apk add --update --no-cache postgresql-client
+RUN apk add --update --no-cache --virtual .tmp-build-deps \
+      gcc libc-dev python3-dev linux-headers musl-dev postgresql-dev
 RUN pip install -r requirements.txt
+RUN apk del .tmp-build-deps
+
 
 
 RUN adduser -D user
